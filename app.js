@@ -1,8 +1,3 @@
-let billyToRose = '';
-let jackToRose = '';
-let roseToBill = '';
-let roseToJack = '';
-
 
 (function( $ ) {
     var o = $( {} );
@@ -22,7 +17,7 @@ let roseToJack = '';
 let billy = (function(){
     let name = 'Billy';
     let girlfriendName = 'Rose';
-    billyToRose = 'Hello, it is ' + name + '.' + girlfriendName + ', I am busy today. See you another time';
+    let billyToRose = 'Hello, it is ' + name + '.' + girlfriendName + ', I am busy today. See you another time';
 
     return{
         sendMessage: function(){
@@ -32,12 +27,12 @@ let billy = (function(){
         },
 
         subscribe: function(){
-            
-            $.subscribe(roseToBill, function(e){
+            $.subscribe(rose.sendToBill(), function(e){
+                console.log(rose.sendToBill());
                 console.log('AAAAAAAA RUN!!!');
             })
-        
         }
+
     }
 })();
 
@@ -45,7 +40,7 @@ let billy = (function(){
 let jack = (function(){
     let name = 'Jack';
     let girlfriendName = 'Rose';
-    jackToRose = 'Hi '+ girlfriendName + 'It is' + name + 'I like you';
+    let jackToRose = 'Hi, '+ girlfriendName + ' It is ' + name + '. I like you';
 
     return{
         sendMessage: function(){
@@ -54,8 +49,8 @@ let jack = (function(){
         },
 
         subscribe: function(){
-            $.subscribe(roseToJack, function(e){
-                console.log('roseToJack', roseToJack);
+            return $.subscribe(rose.sendToBill(), function(e){
+                console.log('roseToJack', rose.sendToBill());
             })
         }
     }
@@ -63,25 +58,39 @@ let jack = (function(){
 
 let rose = (function(){
     let name = 'Rose';
-     roseToBill = 'There is a great grizzly over there! It is gonna ohm-nom-nom you!:)))';
-     roseToJack = 'Happy smile';
+     let roseToBill = 'There is a great grizzly over there! It is gonna ohm-nom-nom you!:)))';
+     let roseToJack = 'Happy smile';
 
     return{
         subscribe: function(){
 
-            $.subscribe(jackToRose, function(e){
-                console.log(jackToRose);
-                $.publish(roseToJack);
-            })
+            
+            $.subscribe(jack.sendMessage(), function(e){
+                console.log('jackToRose', jack.sendMessage());
+            }),
 
-            $.subscribe(billyToRose, function(e){
-                console.log(billyToRose);
-                $.publish(roseToBill)
+            $.subscribe(billy.sendMessage(), function(e){
+                console.log('billyToRose', billy.sendMessage());
+                
             });
+        },
+
+        sendToBill: function(){
+            $.publish(roseToBill);
+            return roseToBill;
+        },
+
+        sendToJack: function(){
+            $.publish(roseToJack);
+            return roseToJack;
         }
     }
 })();
 
-console.log(billyToRose , jackToRose, roseToJack, roseToBill);
+rose.sendToBill(); 
+rose.sendToJack(); 
+rose.subscribe();
+billy.subscribe(); 
+jack.sendMessage();
 
 
