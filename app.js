@@ -49,7 +49,7 @@ let jack = (function(){
         },
 
         subscribe: function(){
-            return $.subscribe(rose.sendToBill(), function(e){
+                $.subscribe(rose.sendToBill(), function(e){
                 console.log('roseToJack', rose.sendToBill());
             })
         }
