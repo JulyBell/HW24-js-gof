@@ -21,16 +21,15 @@ let billy = (function(){
 
     return{
         sendMessage: function(){
-            console.log('Billy sent a massage');
             $.publish(billyToRose);
             return billyToRose;
         },
 
         subscribe: function(){
             $.subscribe(rose.sendToBill(), function(e){
-                console.log(rose.sendToBill());
+                console.log('Rose to Bill: ', rose.sendToBill());
                 console.log('AAAAAAAA RUN!!!');
-            })
+            }())
         }
 
     }
@@ -49,9 +48,9 @@ let jack = (function(){
         },
 
         subscribe: function(){
-                $.subscribe(rose.sendToBill(), function(e){
-                console.log('roseToJack', rose.sendToBill());
-            })
+                $.subscribe(rose.sendToJack(), function(e){
+                console.log('Rose to Jack: ', rose.sendToJack());
+            }())
         }
     }
 })();
@@ -66,13 +65,12 @@ let rose = (function(){
 
             
             $.subscribe(jack.sendMessage(), function(e){
-                console.log('jackToRose', jack.sendMessage());
-            }),
+                console.log('Jack to Rose: ', jack.sendMessage());
+            }()),
 
             $.subscribe(billy.sendMessage(), function(e){
-                console.log('billyToRose', billy.sendMessage());
-                
-            });
+                console.log('Billy to Rose: ', billy.sendMessage());
+            }());
         },
 
         sendToBill: function(){
@@ -87,10 +85,10 @@ let rose = (function(){
     }
 })();
 
-rose.sendToBill(); 
-rose.sendToJack(); 
+
 rose.subscribe();
 billy.subscribe(); 
-jack.sendMessage();
+jack.subscribe();
+
 
 
