@@ -67,8 +67,8 @@ let rose = (function(){
     return{
         subscribe: function(){
 
-            $.subscribe(jackToRose, function(){
-                console.log(jackToRose);
+            $.subscribe(jackToRose, function(e, results){
+                console.log(results);
                 return $.publish(roseToJack);
             })
 
@@ -83,6 +83,7 @@ let rose = (function(){
 console.log(billyToRose , jackToRose, roseToJack, roseToBill);
 billy.sendMessage();
 billy.subscribe();
+jack.sendMessage();
 jack.subscribe();
 rose.subscribe();
 
