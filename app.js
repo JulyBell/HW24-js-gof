@@ -20,7 +20,7 @@ let roseToJack = '';
 
 let billy = (function(){
     let name = 'Billy';
-    let girlfriendName = 'Rose'
+    let girlfriendName = 'Rose';
     billyToRose = 'Hello, it is ' + name + '.' + girlfriendName + ', I am busy today. See you another time';
 
     return{
@@ -31,8 +31,8 @@ let billy = (function(){
 
         subscribe: function(){
             
-            $.subscribe(roseToBill, function(){
-                console.log('rose to bill: ', roseToBill);
+            $.subscribe(roseToBill, function(e, results){
+                console.log('rose to bill: ', results);
                 console.log('AAAAAAAA RUN!!!');
             })
         
@@ -43,7 +43,7 @@ let billy = (function(){
 
 let jack = (function(){
     let name = 'Jack';
-    let girlfriendName = 'Rose'
+    let girlfriendName = 'Rose';
     jackToRose = 'Hi '+ girlfriendName + 'It is' + name + 'I like you';
 
     return{
@@ -52,8 +52,8 @@ let jack = (function(){
         },
 
         subscribe: function(){
-            $.subscribe(roseToJack, function(){
-                console.log('roseToJack', roseToJack);
+            $.subscribe(roseToJack, function(e, results){
+                console.log('roseToJack', results);
             })
         }
     }
@@ -72,8 +72,8 @@ let rose = (function(){
                 return $.publish(roseToJack);
             })
 
-            $.subscribe(billyToRose, function(){
-                console.log(billyToRose);
+            $.subscribe(billyToRose, function(e, results){
+                console.log(results);
                 return $.publish(roseToBill)
             });
         }
@@ -81,6 +81,7 @@ let rose = (function(){
 })();
 
 console.log(billyToRose , jackToRose, roseToJack, roseToBill);
+billy.sendMessage();
 billy.subscribe();
 jack.subscribe();
 rose.subscribe();
