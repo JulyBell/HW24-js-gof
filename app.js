@@ -15,21 +15,18 @@
 
 
 let billy = (function(){
-    let name = 'Billy';
-    let girlfriendName = 'Rose';
-    let billyToRose = 'Hello, it is ' + name + '.' + girlfriendName + ', I am busy today. See you another time';
+    let billyToRose = 'LyingOnTheSofa';
 
     return{
         sendMessage: function(){
             $.publish(billyToRose);
-            return billyToRose;
         },
 
         subscribe: function(){
-            $.subscribe(rose.sendToBill(), function(e){
-                console.log('Rose to Bill: ', rose.sendToBill());
+            $.subscribe('Go-away!', function(e){
+                console.log('Rose to Bill:', 'Go-away!')
                 console.log('AAAAAAAA RUN!!!');
-            }())
+            })
         }
 
     }
@@ -37,9 +34,7 @@ let billy = (function(){
 
 
 let jack = (function(){
-    let name = 'Jack';
-    let girlfriendName = 'Rose';
-    let jackToRose = 'Hi, '+ girlfriendName + ' It is ' + name + '. I like you';
+    let jackToRose = 'Hi,I-like-you';
 
     return{
         sendMessage: function(){
@@ -48,39 +43,36 @@ let jack = (function(){
         },
 
         subscribe: function(){
-                $.subscribe(rose.sendToJack(), function(e){
-                console.log('Rose to Jack: ', rose.sendToJack());
-            }())
+                $.subscribe('Happy-smile', function(e){
+                console.log('Rose to Jack: ', 'Happy-smile');
+            })
         }
     }
 })();
 
 let rose = (function(){
-    let name = 'Rose';
-     let roseToBill = 'There is a great grizzly over there! It is gonna ohm-nom-nom you!:)))';
-     let roseToJack = 'Happy smile';
+     let roseToBill = 'Go-away!';
+     let roseToJack = 'Happy-smile';
 
     return{
         subscribe: function(){
 
             
-            $.subscribe(jack.sendMessage(), function(e){
-                console.log('Jack to Rose: ', jack.sendMessage());
-            }()),
+            $.subscribe('Hi,I-like-you', function(e){
+                console.log('Jack to Rose: ', 'Hi,I-like-you');
+            }),
 
-            $.subscribe(billy.sendMessage(), function(e){
-                console.log('Billy to Rose: ', billy.sendMessage());
-            }());
+            $.subscribe('LyingOnTheSofa', function(e){
+                console.log('Billy to Rose: ', 'LyingOnTheSofa');
+            });
         },
 
         sendToBill: function(){
             $.publish(roseToBill);
-            return roseToBill;
         },
 
         sendToJack: function(){
             $.publish(roseToJack);
-            return roseToJack;
         }
     }
 })();
@@ -89,6 +81,10 @@ let rose = (function(){
 rose.subscribe();
 billy.subscribe(); 
 jack.subscribe();
+billy.sendMessage();
+jack.sendMessage();
+rose.sendToBill();
+rose.sendToJack();
 
 
 
