@@ -1,4 +1,3 @@
-
 (function( $ ) {
     var o = $( {} );
 
@@ -24,11 +23,14 @@ let billy = (function(){
 
         subscribe: function(){
             $.subscribe('Go-away!', function(e){
-                console.log('Rose to Bill:', 'Go-away!')
+                console.log('Rose to Bill:', 'Go-away!');
                 console.log('AAAAAAAA RUN!!!');
+            });
+
+            $.subscribe('I-am-with-Jack', function(e){
+                console.log('Rose to Bill:', 'I am with Jack!');
             })
         }
-
     }
 })();
 
@@ -56,10 +58,10 @@ let rose = (function(){
 
     return{
         subscribe: function(){
-
-            
+    
             $.subscribe('Hi,I-like-you', function(e){
                 console.log('Jack to Rose: ', 'Hi,I-like-you');
+                $.publish('I-am-with-Jack')
             }),
 
             $.subscribe('LyingOnTheSofa', function(e){
